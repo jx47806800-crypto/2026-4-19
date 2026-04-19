@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>井字遊戲</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<style>
+		body {
+			text-align: center;
+		}
+
+		h1 {
+			color: #dc685a;
+		}
+
+		button {
+			padding: 10px;
+			border-width: 0px;
+			border-radius: 5px;
+			margin: 15px;
+			font-size: 16px;
+			color: #fff;
+			background-color: #ecaf4f;
+		}
+
+		/* 設定格子大小，並使他置中 */
+		.grid {
+			width: 330px;
+			height: 330px;
+			margin: auto;
+			/* border: 3px solid blue; */
+		}
+
+		.grid div {
+			font-size: 60px;
+			font-weight: bold;
+			color: #ffffff;
+			text-shadow: 0px 0px 10px #999;
+			box-shadow: 0px 0px 10px #999;
+			border-radius: 10px;
+			
+			
+			width: 100px;
+			height: 100px;
+			margin: 5px;
+
+
+			
+			/*透過浮動，使div不會直接換行*/
+			float: left;
+			/*設定行高跟正方形一樣高，使字的可以在格子上下位置的中間*/
+			line-height: 100px;
+			/*使指標碰到格子時，變換樣式*/
+			transition: background-color 1.5s;
+			cursor: pointer;
+			
+		}
+		 
+
+
+		.gray{
+			background-color: #555555;
+
+		}
+		.gray:hover {
+			background-color: #333333;
+		}
+
+		.orange {
+			background-color: #ecaf4f ;
+		}
+
+		.red {
+			background-color: #dc685a ;
+		}
+	</style>
+</head>
+<body>
+    <h1>Tic Tac Toe</h1>
+    <div class="grid">
+        <div id="a" class="gray"></div>
+        <div id="b" class="gray"></div>
+        <div id="c" class="gray"></div>
+        <div id="d" class="gray"></div>
+        <div id="e" class="gray"></div>
+        <div id="f" class="gray"></div>
+        <div id="g" class="gray"></div>
+        <div id="h" class="gray"></div>
+        <div id="i" class="gray"></div>
+    </div>
+    <button>再來一局!</button>
+	<script>
+		var current = "O";
+		var playing = true;
+		$(".grid div").click(place);
+		function place() {
+			if($(this).text() == "" && playing == true){
+				$(this).text(current);
+				if (current == "O") {
+					current = "X";
+					$(this).removeClass("gray");
+					$(this).addClass("orange");
+				} else {
+					current = "O";
+					$(this).removeClass("gray");
+					$(this).addClass("red");
+				}
+			}
+			var a = $("#a").text();
+			var b = $("#b").text();
+			var c = $("#c").text();
+			var d = $("#d").text();
+			var e = $("#e").text();
+			var f = $("#f").text();
+			var g = $("#g").text();
+			var h = $("#h").text();
+			var i = $("#i").text();
+
+			check(a, b, c);
+			check(d, e, f);
+			check(g, h, i);
+			check(a, d, g);
+			check(b, e, h);
+			check(c, f, i);
+			check(a, e, i);
+			check(c, e, g);
+		}
+		function check(x, y, z) {
+			if (x == y && y == z && x != "") {
+				$("h1").text(x + "獲勝");
+				playing = false;
+			}
+		}
+
+		$("button").click(function() {
+			$("h1").text("Tic Tac Toe");
+			$(".grid div").text("");
+			$(".grid div").removeClass("red");
+			$(".grid div").removeClass("orange");
+			$(".grid div").addClass("gray");
+			playing = true;
+		});
+	</script>
+</body>
+</html>
